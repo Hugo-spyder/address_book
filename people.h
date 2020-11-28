@@ -6,45 +6,61 @@
 #define ADDRESS_BOOK_PEOPLE_H
 
 #include <string>
+#include <iostream>
+#include <fstream>
 using std::string;
+using std::ostream;
+using std::istream;
+using std::ifstream;
+using std::ofstream;
 class People
 {
 private:
    string name;
-   long long telephone;
+   string telephone;
    string address;
    string mail;
    string unit;
    string comment;
 public:
-    People(); // default constructor
-    People(string & na, long long & num,string & addr , string & mal , string &ut, string &com);
+    People() = default; // default constructor
     ~People() = default;
     // methods
-    string myname();
-    void showpeople() const;
+    string getName();
+    void setName(string & na) {name = na;}
+    void setTele(string & te) {telephone = te;}
+    void setAddr(string & ad) {address = ad;}
+    void setMail(string & ma) {mail = ma;}
+    void setUnit(string & un) {unit = un;}
+    void setComm(string & co) {comment = co;}
+    // friend function
+    friend ostream & operator<<(ostream & os, const People & peo);
+    friend ofstream &operator<<(ofstream & of, const People & peo);
+    friend istream & operator>>(istream & is, People & peo);
 };
 // ---------------------
 class PeopleBook
 {
-private:
+public:
     // Node
     struct Node{People people; struct Node *next;};
-    // private class members
-    Node * head;
-    Node * tail;
-    int peoples; // 总人数
-public:
     PeopleBook();
     ~PeopleBook();
     bool isempty() const;
     int peopleCount() const;
     // 查找联系人
-    bool haspeople(const string & na);
-
-    void findpeople(const string & na);
+    Node * findpeople(const string & na);
     // 增加 删除
     bool addpeople(const People & pl); // add people
     bool delpeople(const string & na);
+    // 从文件中读取数据
+    void loadData();
+    void outData();
+    // 显示通讯录
+    void showPeopleBk(int nums);
+private:
+    Node * head;
+    Node * tail;
+    int peoples;
 };
 #endif //ADDRESS_BOOK_PEOPLE_H
