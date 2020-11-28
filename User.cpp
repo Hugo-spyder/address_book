@@ -29,7 +29,7 @@ int User::signUp() {
     readFile.close();
     if (flag)
     {
-        cout << "This user has been used, please sign up again or sign in." << endl;
+        cout << "This user "<< name << " has been registered, please register again or login." << endl;
         return 0;   // 说明用户名被注册过
     }
     else
@@ -37,7 +37,7 @@ int User::signUp() {
         writeFile << name << endl;
         writeFile << password << endl;
         writeFile.close();
-        cout << "You have sign up successfully!" << endl;
+        cout << name << " have registered successfully!" << endl;
         return 1;   // 注册成功
     }
 }
@@ -76,13 +76,23 @@ int User::signIn() {
     else{
         if (!match)
         {
-            cout << "Password is wrong." << endl;
+            cout << "Password or username is wrong." << endl;
             return 3; // 3 代表用户名与密码不匹配
         }
         else
         {
-            cout << "Sign in successfully." << endl;
+            cout << name << " login successfully." << endl;
             return 1; // 1 登录成功
         }
     }
+}
+
+// friend function
+istream & operator>> (istream & is, User & us)
+{
+    cout << "Please enter user name:\n";
+    getline(is,us.name);
+    cout << "Please enter " << us.name << " password:\n";
+    getline(is,us.password);
+    return is;
 }
