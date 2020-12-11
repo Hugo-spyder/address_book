@@ -26,7 +26,7 @@ public:
     People() = default; // default constructor
     ~People() = default;
     // methods
-    string getName() const { return name;};
+    string& getName() { return name;};
     void setName(string & na) {name = na;}
     void setTele(string & te) {telephone = te;}
     void setAddr(string & ad) {address = ad;}
@@ -64,6 +64,10 @@ public:
     Node * partition(Node*pBegin, Node * pEnd);
     void quitSort(Node *pBegin,Node *pEnd);
     bool sort();
+    // 基于KMP算法的模糊查询
+    void computeLPSArray(string & pat, int * lps);
+    int KMPSearch(string & pat, string & txt);
+    void fuzzyQuery(string & pat);
 private:
     Node * head;
     Node * tail;
