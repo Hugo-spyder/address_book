@@ -13,6 +13,8 @@ void deleteContact(PeopleBook &);
 
 void displayContact(PeopleBook &);
 
+void fuzzyQuery(PeopleBook &);
+
 int main() {
     // 首先用户登录
     int Select;
@@ -79,10 +81,13 @@ int main() {
             case 6:
                 peopleBook.sort();
                 break;
+            case 7:
+                fuzzyQuery(peopleBook);
+                break;
             default:
                 break;
         }
-        if (Select == 7)
+        if (Select == 8)
             break;
     }
 
@@ -107,7 +112,8 @@ void showMenu(int choose) {
             cout << "\t\t|    4. Delete contact    |\n";
             cout << "\t\t|    5. Display contacts  |\n";
             cout << "\t\t|    6. Sort              |\n";
-            cout << "\t\t|    7. Quit              |\n";
+            cout << "\t\t|    7. Fuzzy Query       |\n";
+            cout << "\t\t|    8. Quit              |\n";
             cout << "\t\t^*************************^\n";
             break;
         case 3:
@@ -212,4 +218,12 @@ void modifyContact(PeopleBook &pB) {
                 break;
         }
     }
+}
+
+void fuzzyQuery(PeopleBook & pB)
+{
+    cout << "Name:\n";
+    string name;
+    getline(cin,name);
+    pB.fuzzyQuery(name);
 }
