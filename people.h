@@ -26,7 +26,7 @@ public:
     People() = default; // default constructor
     ~People() = default;
     // methods
-    string getName();
+    string getName() const { return name;};
     void setName(string & na) {name = na;}
     void setTele(string & te) {telephone = te;}
     void setAddr(string & ad) {address = ad;}
@@ -35,7 +35,7 @@ public:
     void setComm(string & co) {comment = co;}
     // friend function
     friend ostream & operator<<(ostream & os, const People & peo);
-    friend ofstream &operator<<(ofstream & of, const People & peo);
+    friend ofstream & operator<<(ofstream & of, const People & peo);
     friend istream & operator>>(istream & is, People & peo);
 };
 // ---------------------
@@ -58,6 +58,12 @@ public:
     void outData();
     // 显示通讯录
     void showPeopleBk(int nums);
+    // 排序
+    template <typename T>
+    void swap(T & a, T & b);
+    Node * partition(Node*pBegin, Node * pEnd);
+    void quitSort(Node *pBegin,Node *pEnd);
+    bool sort();
 private:
     Node * head;
     Node * tail;
