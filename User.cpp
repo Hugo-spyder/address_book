@@ -2,9 +2,10 @@
 // Created by 13513 on 2020/11/25.
 //
 #include <iostream>
-#include <fstream>
 #include <cstdlib>
+#include <conio.h>
 #include "User.h"
+#include "MD5.h"
 
 string User::filename = "UserInfo.txt";
 User::User(string &na, string &pwd)  {
@@ -35,7 +36,7 @@ int User::signUp() {
     else
     {
         writeFile << name << endl;
-        writeFile << password << endl;
+        writeFile << MD5(password).toStr() << endl;
         writeFile.close();
         cout << name << " have registered successfully!" << endl;
         return 1;   // 注册成功
@@ -61,7 +62,7 @@ int User::signIn() {
         if (name == temp1)
         {
             exitName = 1;
-            if (password == temp2)
+            if (MD5(password).toStr() == temp2)
             {
                 match = 1;
                 break;
@@ -92,7 +93,27 @@ istream & operator>> (istream & is, User & us)
 {
     cout << "Please enter user name:\n";
     getline(is,us.name);
-    cout << "Please enter " << us.name << " password:\n";
-    getline(is,us.password);
+    us.dataFile = us.name + "Data.txt";
+    cout << "Please enter " << us.name << "'s password:\n";
+    char ch;
+    int index = 0;
+    while (true){
+        ch = _getch();
+        if (ch == 8)  // 8 退格键
+        {
+            if(index != 0){
+                cout << char(8) << " " << char(8);
+                us.password.erase(us.password.begin() + (--index));
+            }
+        }
+        else if (ch == '\r'){
+            break;
+        }
+        else{
+            cout << "*" ;
+            us.password += ch;
+            index++;
+        }
+    }
     return is;
 }
