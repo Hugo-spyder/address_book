@@ -16,13 +16,14 @@ private:
     string name;
     string password;
     static string filename; // 静态数据成员
+    string dataFile;
 public:
     // method
-    User()= default;
+    User() = default;
     User(string & na, string & pwd);
     ~User()= default;
-    void setName(string & na) {name = na;}
-    void setPass(string & pa) {password = pa;}
+    string getName() { return name;}
+    string getDataFile() { return dataFile;}
     // 注册功能
     int signUp();
     // 登录功能
