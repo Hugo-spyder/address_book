@@ -9,6 +9,18 @@ using std::cout;
 using std::ifstream;
 using std::ofstream;
 
+void showMenu() {
+    cout << "\t\t^*************************^\n";
+    cout << "\t\t|    1. Name              |\n";
+    cout << "\t\t|    2. Telephone         |\n";
+    cout << "\t\t|    3. Address           |\n";
+    cout << "\t\t|    4. Mail              |\n";
+    cout << "\t\t|    5. Unit              |\n";
+    cout << "\t\t|    6. Comment           |\n";
+    cout << "\t\t|    7. Quit              |\n";
+    cout << "\t\t^*************************^\n";
+}
+
 // friend people
 ostream &operator<<(ostream &os, const People &peo) {
     os << "Name: " << peo.name << std::endl;
@@ -127,12 +139,11 @@ bool PeopleBook::delpeople(const string &na) {
 }
 
 //  从文件读取数据
-void PeopleBook::loadData() {
-    ifstream readFile("addressData.txt");
+void PeopleBook::loadData(string file_name) {
+    ifstream readFile(file_name);
     if (!readFile.is_open()) {
-        cout << "Can't open the file\n";
-        cout << "Program terminating.\n";
-        exit(EXIT_FAILURE);
+        ofstream writeFile(file_name);
+        return;
     }
     People people;
     int lines = 0;           // 记录所读取的行数
@@ -165,8 +176,8 @@ void PeopleBook::loadData() {
     readFile.close();
 }
 
-void PeopleBook::outData() {
-    ofstream writeFile("addressData.txt");
+void PeopleBook::outData(string file_name) {
+    ofstream writeFile(file_name);
     Node *temp = head;
     while (temp != nullptr) {
         writeFile << temp->people;
@@ -234,6 +245,7 @@ bool PeopleBook::sort() {
     else
     {
         quitSort(head,tail);
+        cout << "Sort successfully.";
         return true;
     }
 }
@@ -305,7 +317,10 @@ int PeopleBook::KMPSearch(string &pat, string &txt) {
     return 0;
 }
 
-void PeopleBook::fuzzyQuery(string &pat) {
+void PeopleBook::fuzzyQuery() {
+    cout << "Name:\n";
+    string pat;
+    getline(cin,pat);
     Node * temp = head;
     while (temp != nullptr){
         if (KMPSearch(pat,temp->people.getName()))
@@ -314,3 +329,92 @@ void PeopleBook::fuzzyQuery(string &pat) {
     }
 }
 
+void PeopleBook::addContact() {
+        People contact;
+        cin >> contact;
+        if (findpeople(contact.getName()) != nullptr)
+        {
+            cout << "There is a people who has a same name in address book.\n";
+            return;
+        }
+        addpeople(contact);
+}
+
+void PeopleBook::queryContact() {
+        string name;
+        cout << "Please enter the name of people who you are finding :\n";
+        getline(cin, name);
+        PeopleBook::Node *pN = findpeople(name);
+        if (pN != nullptr)
+            cout << pN->people.getName() << "'s information:\n" << pN->people << endl;
+
+}
+
+void PeopleBook::displayContact() {
+        cout << "How many do you want display?(enter a positive integer less than total people): \n";
+        int nums;
+        while (!(cin >> nums)) {
+            cin.clear();
+            while (cin.get() != '\n')
+                continue;
+            cout << "Please enter a number: ";
+        }
+        showPeopleBk(nums);
+}
+
+void PeopleBook::deletContact() {
+        cout << "Please enter the name of the people who you want to delete :\n";
+        string name;
+        getline(cin, name);
+        delpeople(name);
+}
+
+void PeopleBook::modifyContact() {
+        string name;
+        cout << "Please enter the name of people who you want modify: \n";
+        getline(cin, name);
+        PeopleBook::Node *pN = findpeople(name);
+        if (pN == nullptr) {
+            cout << "Can't find the people whose name is " << name << endl;
+        } else {
+            cout << endl << pN->people << endl;
+            showMenu();
+            cout << "What information do you want modify?\n";
+            cout << "Choose(from 1 to 7): \n";
+            int Choice;
+            while (!(cin >> Choice)) {
+                cin.clear();
+                while (cin.get() != '\n')
+                    continue;
+                cout << "Please enter a number: \n";
+            }
+            cin.get();
+            if (Choice == 7)
+                return;
+            string modifyInfo;
+            cout << "Please enter your modify:\n";
+            getline(cin, modifyInfo);
+            switch (Choice) {
+                case 1:
+                    pN->people.setName(modifyInfo);
+                    break;
+                case 2:
+                    pN->people.setTele(modifyInfo);
+                    break;
+                case 3:
+                    pN->people.setAddr(modifyInfo);
+                    break;
+                case 4:
+                    pN->people.setMail(modifyInfo);
+                    break;
+                case 5:
+                    pN->people.setUnit(modifyInfo);
+                    break;
+                case 6:
+                    pN->people.setComm(modifyInfo);
+                    break;
+                default:
+                    break;
+            }
+        }
+}
