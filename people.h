@@ -8,6 +8,8 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "User.h"
+
 using std::string;
 using std::ostream;
 using std::istream;
@@ -54,8 +56,8 @@ public:
     bool addpeople(const People & pl); // add people
     bool delpeople(const string & na);
     // 从文件中读取数据
-    void loadData();
-    void outData();
+    void loadData(string data_file_name);
+    void outData(string data_file_name);
     // 显示通讯录
     void showPeopleBk(int nums);
     // 排序
@@ -67,7 +69,13 @@ public:
     // 基于KMP算法的模糊查询
     void computeLPSArray(string & pat, int * lps);
     int KMPSearch(string & pat, string & txt);
-    void fuzzyQuery(string & pat);
+    void fuzzyQuery();
+
+    void addContact();
+    void queryContact();
+    void displayContact();
+    void deletContact();
+    void modifyContact();
 private:
     Node * head;
     Node * tail;
