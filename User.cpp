@@ -82,7 +82,7 @@ int User::signIn() {
         }
         else
         {
-            cout << name << " login successfully." << endl;
+            cout << endl << name << " login successfully." << endl;
             return 1; // 1 登录成功
         }
     }
