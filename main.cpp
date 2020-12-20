@@ -12,10 +12,9 @@ int main() {
     int Color1[10] = {12,7,7};
     Menu menu1(Option1,Color1,3);  // 创建菜单
     system("cls"); // 清空屏幕
-    menu1.show();
-
     while (true)
     {
+        menu1.show();
         menu1.setColor(menu1.getCont(),white); // 未选择之前
         int key = menu1.select();
         menu1.setColor(menu1.getCont(),red);   // 选择之后
@@ -28,22 +27,20 @@ int main() {
                 cin >> user;
                 if(user.signIn() == 1)
                     break;
-                else
-                    continue;
             }
             if(menu1.getCont() == 2)
             {
                 cin >> user;
                 if (user.signUp())
                     break;      // 注册成功，跳出循环
-                else
-                    continue;   // 注册失败，跳出此次循环，继续登录或注册
             }
             if(menu1.getCont() == 3)
             {
                 menu1.color(white);
                 return 0;
             }
+            system("pause");
+            system("cls");
         }
     }
     menu1.color(white);
@@ -61,13 +58,13 @@ int main() {
     {
         menu2.show();
         menu2.color(white);
-        cout << endl << peopleBook.peopleCount() << " totally people have.";
+        cout << endl << peopleBook.peopleCount() << " people totally have.";
         menu2.setColor(menu2.getCont(),white); // 未选择之前
         int key = menu2.select();
         menu2.setColor(menu2.getCont(),red);   // 选择之后
         menu2.show();
         menu2.color(white);
-        cout << endl << peopleBook.peopleCount() << " totally people have.";
+        cout << endl << peopleBook.peopleCount() << " people totally have.";
 
         if(key == '\r')
         {
