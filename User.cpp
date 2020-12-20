@@ -71,13 +71,13 @@ int User::signIn() {
     }
     readFile.close();
     if (!exitName) {
-        cout << "Don't have this user name." << endl;
+        cout << endl << "Don't have this user name." << endl;
         return 2;// 2 代表没有此用户名
     }
     else{
         if (!match)
         {
-            cout << "Password or username is wrong." << endl;
+            cout << endl << "Password or username is wrong." << endl;
             return 3; // 3 代表用户名与密码不匹配
         }
         else
@@ -97,6 +97,7 @@ istream & operator>> (istream & is, User & us)
     cout << "Please enter " << us.name << "'s password:\n";
     char ch;
     int index = 0;
+    us.password.clear();  // 输入错误之后清空
     while (true){
         ch = _getch();
         if (ch == 8)  // 8 退格键
