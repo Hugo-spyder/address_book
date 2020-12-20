@@ -3,4 +3,4 @@ project(address_book)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(address_book main.cpp people.h people.cpp User.h User.cpp MD5.cpp MD5.h Menu.cpp)
+add_executable(address_book main.cpp people.h people.cpp User.h User.cpp)
