@@ -14,6 +14,11 @@ C++ implement the address book
 7. 文件存放
 8. 控制台菜单
 
+## How to use?
+
+Push up-key and down-key to select 
+Push 'Enter' to decide your choice
+
 ## File structure
 
 - #### main.cpp
