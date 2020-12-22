@@ -17,7 +17,7 @@ C++ implement the address book
 ## How to use?
 
 - Push up-key and down-key to select 
-- Push '''Enter''' to decide your choice
+- Push 'Enter' to decide your choice
 
 ## File structure
 
