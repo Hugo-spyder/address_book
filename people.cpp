@@ -143,6 +143,7 @@ void PeopleBook::loadData(string file_name) {
     ifstream readFile(file_name);
     if (!readFile.is_open()) {
         ofstream writeFile(file_name);
+        writeFile.close();
         return;
     }
     People people;
