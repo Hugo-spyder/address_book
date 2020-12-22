@@ -2,7 +2,6 @@
 // Created by 13513 on 2020/11/25.
 //
 #include <iostream>
-#include <cstdlib>
 #include <conio.h>
 #include "User.h"
 #include "MD5.h"
@@ -47,9 +46,11 @@ int User::signIn() {
     ifstream readFile(filename.c_str());
     if (!readFile.is_open())
     {
-        cout << "Couldn't open the file UserInfo.txt\n";
-        cout << "Program terminating.\n";
-        exit(EXIT_FAILURE);
+        cout << "Couldn't open the file UserInfo.txt" << endl;
+        cout << "UserInfo.txt has been established now." << endl;
+        ofstream writeFile(filename.c_str());
+        readFile.open(filename.c_str());
+        writeFile.close();
     }
     string temp1;
     string temp2;
